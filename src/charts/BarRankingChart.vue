@@ -1,10 +1,6 @@
 <template>
-  <BasePanel title="城市排名">
-    <VChart
-      :option="chartOption"
-      :autoresize="true"
-      style="width: 100%; height: 100%"
-    />
+  <BasePanel title="城市排名" accent="gold">
+    <VChart :option="chartOption" :autoresize="true" style="width: 100%; height: 100%" />
   </BasePanel>
 </template>
 
@@ -16,79 +12,65 @@ import { BarChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 import type { RankItem } from '@/types/dashboard'
+import BasePanel from '@/components/BasePanel.vue'
 
 use([BarChart, GridComponent, TooltipComponent, CanvasRenderer])
 
-const props = defineProps<{
-  data: RankItem[]
-}>()
+const props = defineProps<{ data: RankItem[] }>()
 
 const chartOption = computed(() => {
-  // 取前8名反转顺序让条形图从上到下排列
   const top = [...props.data].slice(0, 8).reverse()
 
   return {
+    backgroundColor: 'transparent',
     tooltip: {
       trigger: 'axis' as const,
       axisPointer: { type: 'shadow' as const },
-      backgroundColor: 'rgba(20, 10, 40, 0.9)',
-      borderColor: 'rgba(140, 100, 220, 0.5)',
-      textStyle: { color: '#e0d0ff', fontSize: 13 },
+      backgroundColor: 'rgba(6, 8, 22, 0.95)',
+      borderColor: 'rgba(255, 213, 79, 0.3)',
+      textStyle: { color: '#e0e0f0', fontSize: 12, fontFamily: "'Rajdhani','Microsoft YaHei',sans-serif" },
     },
-    grid: {
-      left: 8,
-      right: 28,
-      top: 8,
-      bottom: 8,
-      containLabel: true,
-    },
+    grid: { left: 6, right: 28, top: 6, bottom: 6, containLabel: true },
     xAxis: {
       type: 'value',
-      splitLine: { lineStyle: { color: 'rgba(140, 100, 220, 0.12)' } },
+      splitLine: { lineStyle: { color: 'rgba(0, 229, 255, 0.06)' } },
       axisLabel: {
-        color: '#9080b0',
-        fontSize: 13,
+        color: '#7878a8', fontSize: 12,
         formatter: (v: number) => (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : String(v)),
       },
     },
     yAxis: {
       type: 'category',
       data: top.map((d) => d.name),
-      axisLine: { lineStyle: { color: 'rgba(140, 100, 220, 0.3)' } },
+      axisLine: { lineStyle: { color: 'rgba(0, 229, 255, 0.15)' } },
       axisTick: { show: false },
-      axisLabel: {
-        color: '#b0a0d0',
-        fontSize: 14,
-      },
+      axisLabel: { color: '#b0b0d0', fontSize: 13, fontFamily: "'Rajdhani','Microsoft YaHei',sans-serif" },
     },
-    series: [
-      {
-        type: 'bar',
-        data: top.map((d) => d.value),
-        barWidth: 14,
+    series: [{
+      type: 'bar',
+      data: top.map((d) => ({
+        value: d.value,
         itemStyle: {
-          borderRadius: [0, 3, 3, 0],
+          borderRadius: [0, 4, 4, 0],
           color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 1,
-            y2: 0,
+            type: 'linear', x: 0, y: 0, x2: 1, y2: 0,
             colorStops: [
-              { offset: 0, color: '#7c4dff' },
-              { offset: 1, color: '#c0a0ff' },
+              { offset: 0, color: '#ffd54f' },
+              { offset: 1, color: '#ffab00' },
             ],
           },
+          shadowBlur: 8,
+          shadowColor: 'rgba(255, 213, 79, 0.3)',
         },
-        label: {
-          show: true,
-          position: 'right',
-          color: '#c0a0ff',
-          fontSize: 13,
-          formatter: (p: { value: number }) => (p.value >= 1000 ? (p.value / 1000).toFixed(1) + 'k' : String(p.value)),
-        },
+      })),
+      barWidth: 16,
+      label: {
+        show: true, position: 'right',
+        color: '#ffd54f', fontSize: 12,
+        fontFamily: "'Rajdhani',sans-serif",
+        formatter: (p: { value: number }) => (p.value >= 1000 ? (p.value / 1000).toFixed(1) + 'k' : String(p.value)),
       },
-    ],
+    }],
   }
 })
 </script>
