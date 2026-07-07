@@ -49,24 +49,45 @@
 
 ## 快速开始
 
+### 首次使用（从 GitHub 下载）
+
 ```bash
-# 克隆仓库
+# 1. 克隆仓库
 git clone git@github.com:entyame/EneDataVisionStudio.git
 
-# 进入项目目录
+# 2. 进入项目目录
 cd EneDataVisionStudio
 
-# 安装依赖
+# 3. 安装依赖（仅首次需要）
 npm install
 
-# 启动开发服务器（自动打开浏览器）
+# 4. 启动开发服务器（自动打开浏览器访问 http://localhost:3000）
 npm run dev
+```
 
-# 运行单元测试
-npm test
+### 日常使用（项目已在本地）
 
-# 运行 E2E 测试
-npm run test:e2e
+```bash
+# 1. 打开终端，进入项目目录
+cd EneDataVisionStudio
+
+# 2. 启动
+npm run dev
+```
+
+> 浏览器会自动打开 `http://localhost:3000`，修改代码后页面自动热更新。
+
+### 其他命令
+
+```bash
+npm run dev        # 启动开发服务器
+npm run build      # 生产构建
+npm run preview    # 预览生产构建
+npm test           # 运行单元测试
+npm run test:e2e   # 运行 E2E 测试
+npm run lint       # 代码检查
+npm run format     # 代码格式化
+```
 
 # 生产构建
 npm run build
