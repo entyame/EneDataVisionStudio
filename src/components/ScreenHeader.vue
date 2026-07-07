@@ -51,7 +51,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  height: 84px;
   padding: 0 40px;
   background: linear-gradient(180deg, rgba(40, 15, 60, 0.9) 0%, rgba(20, 5, 35, 0.6) 100%);
   border-bottom: 1px solid rgba(140, 100, 220, 0.3);
@@ -103,10 +103,10 @@ onUnmounted(() => {
 }
 
 .header-title {
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 6px;
+  letter-spacing: 8px;
   margin: 0;
   background: linear-gradient(180deg, #ffffff 0%, #c0a0ff 100%);
   -webkit-background-clip: text;
@@ -115,10 +115,10 @@ onUnmounted(() => {
 }
 
 .header-subtitle {
-  font-size: 12px;
-  color: rgba(180, 150, 220, 0.7);
-  margin: 2px 0 0;
-  letter-spacing: 3px;
+  font-size: 14px;
+  color: rgba(180, 150, 220, 0.75);
+  margin: 4px 0 0;
+  letter-spacing: 4px;
 }
 
 /* ---- 时间 ---- */
@@ -130,7 +130,7 @@ onUnmounted(() => {
 }
 
 .time-text {
-  font-size: 13px;
+  font-size: 15px;
   color: #d0c0f0;
   font-family: 'Courier New', monospace;
   letter-spacing: 1px;

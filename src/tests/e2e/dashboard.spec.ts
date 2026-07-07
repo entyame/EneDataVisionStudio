@@ -17,14 +17,14 @@ test.describe('Dashboard Page', () => {
     expect(title).toContain('EneDataVisionStudio')
   })
 
-  test('should display header with 如意数据大屏', async ({ page }) => {
+  test('should display header with EneDataVisionStudio', async ({ page }) => {
     await page.goto('/')
     await page.waitForLoadState('networkidle')
 
     // 验证大屏标题存在
     await expect(page.locator('.header-title')).toBeVisible()
     const headerText = await page.locator('.header-title').textContent()
-    expect(headerText).toContain('如意数据大屏')
+    expect(headerText).toContain('EneDataVisionStudio')
   })
 
   test('should display at least one metric card', async ({ page }) => {

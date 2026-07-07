@@ -2,8 +2,8 @@
   <div class="big-screen-layout">
     <!-- 顶部标题 -->
     <ScreenHeader
-      title="如意数据大屏"
-      subtitle="RUYI BIG SCREEN · 数据可视化平台"
+      title="EneDataVisionStudio"
+      subtitle="Ene数据视觉工作室 · 数据可视化平台"
     />
 
     <!-- 主内容区 -->
@@ -172,7 +172,7 @@ function retry(): void {
 /* ---- 左/右 列 ---- */
 .screen-left,
 .screen-right {
-  width: 440px;
+  width: 470px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -211,7 +211,7 @@ function retry(): void {
 /* ---- 实时动态 ---- */
 .activity-box {
   flex-shrink: 0;
-  height: 180px;
+  height: 200px;
 }
 
 .activity-list {
@@ -226,8 +226,8 @@ function retry(): void {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 5px 8px;
-  font-size: 12px;
+  padding: 7px 10px;
+  font-size: 13px;
   border-radius: 2px;
   background: rgba(60, 30, 100, 0.15);
   transition: background 0.2s;
@@ -264,7 +264,7 @@ function retry(): void {
 .activity-time {
   color: rgba(180, 150, 220, 0.6);
   font-family: 'Courier New', monospace;
-  font-size: 11px;
+  font-size: 12px;
   flex-shrink: 0;
 }
 
@@ -305,7 +305,7 @@ function retry(): void {
 
 .loading-text {
   color: #c0a0ff;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 2px;
 }
 
@@ -325,7 +325,7 @@ function retry(): void {
 
 .error-text {
   color: #ff6e6e;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .error-retry-btn {

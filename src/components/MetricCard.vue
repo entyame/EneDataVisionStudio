@@ -53,8 +53,8 @@ const displayValue = computed(() => {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px 20px;
+  gap: 16px;
+  padding: 22px 24px;
   background: linear-gradient(135deg, rgba(50, 20, 80, 0.5) 0%, rgba(20, 5, 40, 0.7) 100%);
   border: 1px solid rgba(140, 100, 220, 0.25);
   border-radius: 4px;
@@ -91,12 +91,12 @@ const displayValue = computed(() => {
 
 /* ---- 图标 ---- */
 .metric-icon {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 34px;
   border-radius: 8px;
   background: rgba(120, 80, 200, 0.2);
   flex-shrink: 0;
@@ -109,29 +109,30 @@ const displayValue = computed(() => {
 }
 
 .metric-label {
-  font-size: 13px;
-  color: rgba(200, 180, 230, 0.8);
-  margin-bottom: 4px;
-  letter-spacing: 0.5px;
+  font-size: 15px;
+  color: rgba(200, 180, 230, 0.85);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
 }
 
 .metric-value {
   display: flex;
   align-items: baseline;
-  gap: 4px;
-  margin-bottom: 4px;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .value-number {
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 700;
   color: #ffffff;
   font-family: 'DIN Alternate', 'Helvetica Neue', sans-serif;
   letter-spacing: 1px;
+  line-height: 1;
 }
 
 .value-unit {
-  font-size: 13px;
+  font-size: 15px;
   color: rgba(200, 180, 230, 0.7);
 }
 
@@ -140,7 +141,7 @@ const displayValue = computed(() => {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .trend-arrow.up {

@@ -35,7 +35,7 @@ const chartOption = computed(() => ({
     orient: 'vertical' as const,
     right: 4,
     top: 'center',
-    textStyle: { color: '#b0a0d0', fontSize: 10 },
+    textStyle: { color: '#b0a0d0', fontSize: 11 },
     itemWidth: 10,
     itemHeight: 10,
   },

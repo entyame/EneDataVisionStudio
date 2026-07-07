@@ -47,7 +47,7 @@ const chartOption = computed(() => {
       splitLine: { lineStyle: { color: 'rgba(140, 100, 220, 0.12)' } },
       axisLabel: {
         color: '#9080b0',
-        fontSize: 10,
+        fontSize: 11,
         formatter: (v: number) => (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : String(v)),
       },
     },
@@ -58,7 +58,7 @@ const chartOption = computed(() => {
       axisTick: { show: false },
       axisLabel: {
         color: '#b0a0d0',
-        fontSize: 11,
+        fontSize: 12,
       },
     },
     series: [
@@ -84,7 +84,7 @@ const chartOption = computed(() => {
           show: true,
           position: 'right',
           color: '#c0a0ff',
-          fontSize: 10,
+          fontSize: 11,
           formatter: (p: { value: number }) => (p.value >= 1000 ? (p.value / 1000).toFixed(1) + 'k' : String(p.value)),
         },
       },

@@ -32,7 +32,7 @@ const chartOption = computed(() => ({
   },
   legend: {
     bottom: 0,
-    textStyle: { color: '#b0a0d0', fontSize: 10 },
+    textStyle: { color: '#b0a0d0', fontSize: 11 },
     data: props.series.map((s) => s.name),
   },
   radar: {
@@ -44,7 +44,7 @@ const chartOption = computed(() => ({
     })),
     axisName: {
       color: '#b0a0d0',
-      fontSize: 10,
+      fontSize: 11,
     },
     splitArea: {
       areaStyle: {

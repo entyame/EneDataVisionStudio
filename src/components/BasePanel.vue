@@ -111,16 +111,16 @@ defineProps<{
 .panel-header {
   position: relative;
   z-index: 1;
-  padding: 12px 16px 8px;
+  padding: 14px 16px 8px;
   flex-shrink: 0;
 }
 
 .panel-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: #e0d0ff;
-  letter-spacing: 1px;
-  padding-left: 10px;
+  letter-spacing: 2px;
+  padding-left: 12px;
   border-left: 3px solid #c0a0ff;
 }
 
