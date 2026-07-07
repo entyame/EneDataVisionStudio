@@ -1,52 +1,49 @@
 /* ============================================================
    EneDataVisionStudio — HUD 数据驾驶舱主题
-   东方未来科技 × 科幻 HUD × 全息数据驾驶舱
+   深紫主调 × 鎏金提亮 × 极锐清晰
    ============================================================ */
 
 :root {
-  /* ---- 背景体系 ---- */
-  --hud-bg-deep: #06060f;
-  --hud-bg-base: #0a0c1a;
-  --hud-bg-elevated: #0e1024;
-  --hud-bg-surface: rgba(14, 16, 36, 0.55);
+  /* ---- 深紫背景体系 ---- */
+  --hud-bg-deep: #06040f;
+  --hud-bg-base: #0a0618;
+  --hud-bg-elevated: #0e0820;
+  --hud-bg-surface: rgba(14, 8, 32, 0.7);
 
-  /* ---- 霓虹主色 ---- */
-  --hud-cyan: #00e5ff;
-  --hud-cyan-dim: rgba(0, 229, 255, 0.25);
-  --hud-cyan-glow: rgba(0, 229, 255, 0.5);
-
-  /* ---- 玉青 ---- */
-  --hud-jade: #00ff88;
-  --hud-jade-dim: rgba(0, 255, 136, 0.2);
-  --hud-jade-glow: rgba(0, 255, 136, 0.45);
-
-  /* ---- 金属鎏金 ---- */
-  --hud-gold: #ffd54f;
-  --hud-gold-dim: rgba(255, 213, 79, 0.2);
-  --hud-gold-glow: rgba(255, 213, 79, 0.45);
-
-  /* ---- 紫晶基底 ---- */
+  /* ---- 紫晶主色 ---- */
   --hud-purple: #b388ff;
-  --hud-purple-dim: rgba(179, 136, 255, 0.2);
-  --hud-purple-glow: rgba(179, 136, 255, 0.4);
+  --hud-purple-bright: #cc99ff;
+  --hud-purple-dim: rgba(179, 136, 255, 0.25);
+  --hud-purple-glow: rgba(179, 136, 255, 0.5);
+  --hud-purple-deep: #7c4dff;
+
+  /* ---- 金属鎏金（提亮辅助）---- */
+  --hud-gold: #ffd54f;
+  --hud-gold-dim: rgba(255, 213, 79, 0.22);
+  --hud-gold-glow: rgba(255, 213, 79, 0.5);
+  --hud-gold-deep: #ffab00;
+
+  /* ---- 玉青（微点缀）---- */
+  --hud-jade: #00e676;
+  --hud-jade-dim: rgba(0, 230, 118, 0.15);
 
   /* ---- 霓虹粉（告警）---- */
   --hud-pink: #ff4081;
   --hud-pink-dim: rgba(255, 64, 129, 0.2);
 
-  /* ---- 面板 ---- */
-  --hud-panel-bg: rgba(8, 10, 24, 0.65);
-  --hud-panel-border: rgba(0, 229, 255, 0.18);
-  --hud-panel-glow: 0 0 20px rgba(0, 229, 255, 0.06), 0 0 60px rgba(0, 229, 255, 0.03);
-  --hud-glass-blur: blur(12px) saturate(120%);
+  /* ---- 面板（高不透明度、低模糊 → 清晰）---- */
+  --hud-panel-bg: rgba(10, 6, 26, 0.72);
+  --hud-panel-border: rgba(179, 136, 255, 0.22);
+  --hud-panel-glow: 0 0 15px rgba(179, 136, 255, 0.05);
+  --hud-glass-blur: blur(3px) saturate(110%);
 
   /* ---- 文字 ---- */
-  --hud-text-primary: #e8e8f0;
-  --hud-text-secondary: #9898b8;
-  --hud-text-dim: #585878;
-  --hud-text-cyan: #00e5ff;
-  --hud-text-jade: #00ff88;
+  --hud-text-primary: #ece8f4;
+  --hud-text-secondary: #a098b8;
+  --hud-text-dim: #686080;
+  --hud-text-purple: #cc99ff;
   --hud-text-gold: #ffd54f;
+  --hud-text-jade: #00e676;
 
   /* ---- 字体 ---- */
   --hud-font-display: 'Orbitron', 'Rajdhani', 'Segoe UI', sans-serif;
@@ -54,32 +51,29 @@
   --hud-font-body: 'Rajdhani', 'Microsoft YaHei', 'PingFang SC', sans-serif;
 }
 
-/* ---- 全局 HUD 基础 ---- */
+/* ---- 全局 ---- */
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0; padding: 0; box-sizing: border-box;
 }
 
-html,
-body {
-  width: 100%;
-  height: 100%;
+html, body {
+  width: 100%; height: 100%;
   overflow: hidden;
   background: var(--hud-bg-deep);
   font-family: var(--hud-font-body);
   color: var(--hud-text-primary);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 #app {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
 }
 
-/* ---- 全局扫描线叠加（整个屏幕）---- */
+/* ---- 全局扫描线 ---- */
 body::after {
   content: '';
   position: fixed;
@@ -90,126 +84,42 @@ body::after {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 229, 255, 0.008) 2px,
-    rgba(0, 229, 255, 0.008) 4px
+    rgba(179, 136, 255, 0.006) 2px,
+    rgba(179, 136, 255, 0.006) 4px
   );
 }
 
-/* ---- HUD 四角括号 Mixin（通过 CSS class 复用） ---- */
-.hud-corners {
-  position: relative;
-}
-.hud-corners::before,
-.hud-corners::after {
-  content: '';
-  position: absolute;
-  pointer-events: none;
-  z-index: 2;
-}
-.hud-corners::before {
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border-top: 2px solid var(--hud-cyan);
-  border-left: 2px solid var(--hud-cyan);
-  box-shadow: 0 0 6px var(--hud-cyan-glow), inset 0 0 6px var(--hud-cyan-dim);
-}
-/* 右上角 */
-.hud-corners .corner-tr,
-.hud-top-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 24px;
-  height: 24px;
-  border-top: 2px solid var(--hud-cyan);
-  border-right: 2px solid var(--hud-cyan);
-  box-shadow: 0 0 6px var(--hud-cyan-glow), inset 0 0 6px var(--hud-cyan-dim);
-  pointer-events: none;
-  z-index: 2;
-}
-/* 左下角 */
-.hud-corners .corner-bl,
-.hud-bottom-left {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border-bottom: 2px solid var(--hud-cyan);
-  border-left: 2px solid var(--hud-cyan);
-  box-shadow: 0 0 6px var(--hud-cyan-glow), inset 0 0 6px var(--hud-cyan-dim);
-  pointer-events: none;
-  z-index: 2;
-}
-/* 右下角 */
-.hud-corners .corner-br,
-.hud-bottom-right {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 24px;
-  height: 24px;
-  border-bottom: 2px solid var(--hud-cyan);
-  border-right: 2px solid var(--hud-cyan);
-  box-shadow: 0 0 6px var(--hud-cyan-glow), inset 0 0 6px var(--hud-cyan-dim);
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* ---- HUD 扫描线动画 ---- */
+/* ---- 动画 ---- */
 @keyframes hud-scan {
-  0% { top: -2px; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
+  0%   { top: -2px; opacity: 0; }
+  8%   { opacity: 0.55; }
+  92%  { opacity: 0.55; }
+  100% { top: calc(100% + 2px); opacity: 0; }
 }
-
-.hud-scan-line {
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--hud-cyan), transparent);
-  box-shadow: 0 0 8px var(--hud-cyan-glow), 0 0 20px var(--hud-cyan-dim);
-  pointer-events: none;
-  z-index: 3;
-  animation: hud-scan 4s ease-in-out infinite;
-  opacity: 0.5;
-}
-
-/* ---- 呼吸脉冲 ---- */
 @keyframes hud-breathe {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
 }
-
-/* ---- 数据流光 ---- */
 @keyframes hud-data-flow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
-/* ---- 能量环绕 ---- */
 @keyframes hud-orbit {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes hud-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes hud-float-slow {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-2px, -2px); }
+  50%      { transform: translate(1px, -3px); }
+  75%      { transform: translate(2px, -1px); }
 }
 
 /* ---- 滚动条 ---- */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: var(--hud-cyan-dim);
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--hud-cyan-glow);
-}
-
-/* ---- 文字发光工具类 ---- */
-.text-glow-cyan { text-shadow: 0 0 10px var(--hud-cyan-glow), 0 0 30px var(--hud-cyan-dim); }
-.text-glow-jade { text-shadow: 0 0 10px var(--hud-jade-glow), 0 0 30px var(--hud-jade-dim); }
-.text-glow-gold { text-shadow: 0 0 10px var(--hud-gold-glow), 0 0 30px var(--hud-gold-dim); }
+::-webkit-scrollbar-thumb { background: var(--hud-purple-dim); border-radius: 2px; }

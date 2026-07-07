@@ -23,10 +23,10 @@ interface Particle {
 }
 
 const COLORS = [
-  'rgba(0, 229, 255, ALPHA)',   // cyan
-  'rgba(0, 255, 136, ALPHA)',   // jade
   'rgba(179, 136, 255, ALPHA)',  // purple
+  'rgba(200, 160, 255, ALPHA)',  // light purple
   'rgba(255, 213, 79, ALPHA)',   // gold
+  'rgba(255, 213, 79, ALPHA)',   // gold (double weight)
 ]
 
 function createParticle(w: number, h: number): Particle {
@@ -71,7 +71,7 @@ function drawConnection(ctx: CanvasRenderingContext2D, conn: { a: Particle; b: P
   ctx.beginPath()
   ctx.moveTo(a.x, a.y)
   ctx.lineTo(b.x, b.y)
-  ctx.strokeStyle = `rgba(0, 229, 255, ${alpha})`
+  ctx.strokeStyle = `rgba(179, 136, 255, ${alpha})`
   ctx.lineWidth = 0.5
   ctx.stroke()
 
@@ -79,7 +79,7 @@ function drawConnection(ctx: CanvasRenderingContext2D, conn: { a: Particle; b: P
   if (dist < CONNECTION_DIST * 0.7) {
     ctx.beginPath()
     ctx.arc(midX, midY, 1.2, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(0, 229, 255, ${alpha * 2})`
+    ctx.fillStyle = `rgba(179, 136, 255, ${alpha * 2})`
     ctx.fill()
   }
 }
@@ -111,9 +111,9 @@ function createStreamLines(w: number, h: number) {
 
 function drawStreamLine(ctx: CanvasRenderingContext2D, sl: StreamLine) {
   const grad = ctx.createLinearGradient(sl.x, sl.y, sl.x, sl.y + sl.length)
-  grad.addColorStop(0, `rgba(0, 229, 255, ${sl.alpha})`)
-  grad.addColorStop(0.5, `rgba(0, 229, 255, ${sl.alpha * 0.4})`)
-  grad.addColorStop(1, 'rgba(0, 229, 255, 0)')
+  grad.addColorStop(0, `rgba(179, 136, 255, ${sl.alpha})`)
+  grad.addColorStop(0.5, `rgba(179, 136, 255, ${sl.alpha * 0.4})`)
+  grad.addColorStop(1, 'rgba(179, 136, 255, 0)')
 
   ctx.beginPath()
   ctx.moveTo(sl.x, sl.y)

@@ -28,10 +28,10 @@
       <div class="cockpit-center">
         <!-- 指标卡片行 -->
         <div class="metrics-row" v-if="summary">
-          <MetricCard label="今日访问量" :value="summary.todayVisits" unit="次" icon="◈" color="cyan" format="number" :trend="12.5" />
+          <MetricCard label="今日访问量" :value="summary.todayVisits" unit="次" icon="◈" color="purple" format="number" :trend="12.5" />
           <MetricCard label="实时订单数" :value="summary.realtimeOrders" unit="单" icon="◆" color="gold" format="number" :trend="8.3" />
-          <MetricCard label="活跃用户数" :value="summary.activeUsers" unit="人" icon="◇" color="jade" format="number" :trend="-3.2" />
-          <MetricCard label="系统健康度" :value="summary.systemHealth" unit="%" icon="◎" color="purple" format="percent" :trend="0.8" />
+          <MetricCard label="活跃用户数" :value="summary.activeUsers" unit="人" icon="◇" color="purple" format="number" :trend="-3.2" />
+          <MetricCard label="系统健康度" :value="summary.systemHealth" unit="%" icon="◎" color="gold" format="percent" :trend="0.8" />
         </div>
 
         <!-- 地图总览 -->
@@ -110,7 +110,7 @@ function retry() { store.loadDashboardData() }
   height: 1080px;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(ellipse at 50% 30%, #0d1030 0%, #080a1a 45%, #040510 100%);
+  background: radial-gradient(ellipse at 50% 30%, #140820 0%, #0a0618 45%, #05030f 100%);
   color: var(--hud-text-primary);
   font-family: var(--hud-font-body);
   overflow: hidden;
@@ -124,8 +124,8 @@ function retry() { store.loadDashboardData() }
   pointer-events: none;
   z-index: 1;
   background-image:
-    linear-gradient(rgba(0, 229, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(179, 136, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(179, 136, 255, 0.025) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse at 50% 30%, black 40%, transparent 70%);
 }
@@ -198,20 +198,20 @@ function retry() { store.loadDashboardData() }
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 10px;
-  font-size: 14px;
+  padding: 9px 12px;
+  font-size: 15px;
   font-family: var(--hud-font-body);
-  background: rgba(0, 229, 255, 0.03);
+  background: rgba(179, 136, 255, 0.04);
   border-left: 2px solid transparent;
   transition: all 0.3s;
 }
 
 .activity-item:hover {
-  background: rgba(0, 229, 255, 0.07);
+  background: rgba(179, 136, 255, 0.1);
 }
 
 .activity--success { border-left-color: var(--hud-jade); }
-.activity--info    { border-left-color: var(--hud-cyan); }
+.activity--info    { border-left-color: var(--hud-purple); }
 .activity--warning { border-left-color: var(--hud-gold); }
 .activity--error   { border-left-color: var(--hud-pink); }
 
@@ -220,8 +220,8 @@ function retry() { store.loadDashboardData() }
   border-radius: 50%;
   flex-shrink: 0;
 }
-.activity--success .act-dot { background: var(--hud-jade); box-shadow: 0 0 6px var(--hud-jade-glow); }
-.activity--info    .act-dot { background: var(--hud-cyan); box-shadow: 0 0 6px var(--hud-cyan-glow); }
+.activity--success .act-dot { background: var(--hud-jade); box-shadow: 0 0 6px var(--hud-jade-dim); }
+.activity--info    .act-dot { background: var(--hud-purple); box-shadow: 0 0 6px var(--hud-purple-glow); }
 .activity--warning .act-dot { background: var(--hud-gold); box-shadow: 0 0 6px var(--hud-gold-glow); }
 .activity--error   .act-dot { background: var(--hud-pink); box-shadow: 0 0 6px var(--hud-pink-dim); }
 
