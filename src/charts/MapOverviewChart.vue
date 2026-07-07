@@ -19,63 +19,85 @@ use([ScatterChart, EffectScatterChart, LinesChart, TooltipComponent, GridCompone
 const props = defineProps<{ data: MapPoint[] }>()
 
 /* ================================================================
-   核心思路：将中国城市经纬度 投影到 画布坐标空间 [X:0-100, Y:0-100]
-   让节点从最左排到最右、最上排到最下，充分利用全部画布面积。
-   真实经度 87-127 → X 2-98   真实纬度 20-47 → Y 3-97
+   画布坐标 [0-100, 0-100]，中心 [50,50]
+   15 个活跃城市手工布局：360° 均匀辐射 + 错落半径
+   北京/上海 → 上半区 (Y<50)   广州/深圳 → 下半区 (Y>50)
    ================================================================ */
 
-function project(lng: number, lat: number): [number, number] {
-  // longitude 87-127 → canvas X 2-98
-  const x = 2 + ((lng - 87) / (127 - 87)) * 96
-  // latitude 20-47 → canvas Y 3-97 (注意：纬度越大越靠上 = Y越小)
-  const y = 97 - ((lat - 20) / (47 - 20)) * 94
-  // clamp
-  return [Math.max(1, Math.min(99, x)), Math.max(1, Math.min(99, y))]
-}
-
-// 中心根节点：画布正中央
 const CENTER: [number, number] = [50, 50]
 
-// 32 个背景暗点城市（真实经纬度 → 投影坐标）
-const BG_RAW: [string, number, number][] = [
-  ['乌鲁木齐',87.68,43.77],['拉萨',91.11,29.97],['西宁',101.74,36.56],['兰州',103.73,36.03],
-  ['银川',106.27,38.47],['呼和浩特',111.65,40.82],['哈尔滨',126.63,45.75],['长春',125.35,43.88],
-  ['沈阳',123.38,41.8],  ['北京',116.46,39.92],['天津',117.2,39.13], ['石家庄',114.48,38.03],
-  ['太原',112.53,37.87], ['西安',108.95,34.27],['郑州',113.65,34.76],['济南',117.0,36.65],
-  ['成都',104.06,30.67], ['重庆',106.54,29.59],['武汉',114.31,30.52],['合肥',117.27,31.86],
-  ['南京',118.78,32.04], ['上海',121.48,31.22],['杭州',120.19,30.26],['南昌',115.89,28.68],
-  ['长沙',112.98,28.19], ['贵阳',106.71,26.57],['昆明',102.73,25.04],['福州',119.3,26.08],
-  ['南宁',108.33,22.84], ['广州',113.23,23.16],['深圳',114.07,22.62],['海口',110.35,20.02],
-]
+// 手工编排的城市坐标（角度均匀、半径错落、无重叠）
+const CITY_POS: Record<string, [number, number]> = {
+  // ---- 上半区 ----
+  北京:  [50,  8],   // 正上方，长连线
+  天津:  [67, 20],   // 右上近
+  济南:  [75, 35],   // 右中
+  南京:  [86, 47],   // 右中偏下
+  上海:  [90, 18],   // 右上方，长连线
+  苏州:  [74, 26],   // 右上
+  杭州:  [84, 36],   // 右中
+  西安:  [16, 30],   // 左上，长连线
+  成都:  [24, 18],   // 左上方
+  重庆:  [32, 26],   // 左上
+  // ---- 下半区 ----
+  广州:  [15, 78],   // 左下方，长连线
+  深圳:  [28, 85],   // 下方偏左
+  长沙:  [38, 70],   // 下方近
+  武汉:  [55, 72],   // 正下方
+  郑州:  [40, 52],   // 中心偏下
+  沈阳:  [70, 12],   // 右上方
+  哈尔滨:[85,  8],   // 右上方极远
+  昆明:  [12, 60],   // 左下方
+  贵阳:  [22, 56],   // 左下方
+  福州:  [68, 55],   // 右下
+}
 
-const bgDots = BG_RAW.map(([name, lng, lat]) => {
-  const [x, y] = project(lng, lat)
-  return { name, value: [x, y, 0] }
-})
+// 32 个背景暗点：覆盖全画布四个象限
+function buildBgDots(): { name: string; value: [number, number, number] }[] {
+  const dots: { name: string; value: [number, number, number] }[] = []
+  // 网格撒点 6×6 = 36 个，去掉太靠近中心的
+  for (let row = 0; row < 7; row++) {
+    for (let col = 0; col < 7; col++) {
+      const x = 5 + col * 15 + (Math.random() - 0.5) * 6
+      const y = 5 + row * 15 + (Math.random() - 0.5) * 6
+      if (x < 2 || x > 98 || y < 2 || y > 98) continue
+      // 去掉离中心太近的（避免和中枢重叠）
+      const dx = x - 50, dy = y - 50
+      if (Math.sqrt(dx * dx + dy * dy) < 10) continue
+      dots.push({ name: `bg-${row}-${col}`, value: [x, y, 0] })
+    }
+  }
+  return dots
+}
 
-// 活跃城市去重
-const activeNames = new Set(props.data.map(p => p.name))
-const dimDots = bgDots.filter(c => !activeNames.has(c.name))
+const bgDots = buildBgDots()
 
-// 活跃城市：投影坐标（直接覆盖原数据，不再用浮动偏移避免重叠）
+// 活跃城市：用预设坐标
 function projectedActive() {
   return props.data.map(p => {
-    const [x, y] = project(p.value[0], p.value[1])
-    return { name: p.name, value: [x, y, p.value[2]] }
+    const pos = CITY_POS[p.name]
+    if (pos) return { name: p.name, value: [pos[0], pos[1], p.value[2]] }
+    // fallback：均匀撒点
+    const i = props.data.indexOf(p)
+    const angle = (i / props.data.length) * Math.PI * 2
+    const dist = 25 + (i % 3) * 10
+    return {
+      name: p.name,
+      value: [50 + Math.cos(angle) * dist, 50 + Math.sin(angle) * dist, p.value[2]],
+    }
   })
 }
 
-// 中心 → 各活跃城市飞线
-const flightLines = computed(() => {
-  return projectedActive().map(p => ({
-    coords: [CENTER, [p.value[0], p.value[1]]] as [[number,number],[number,number]],
-  }))
-})
+// 中心→各城市飞线
+const flightLines = computed(() =>
+  projectedActive().map(p => ({
+    coords: [CENTER, [p.value[0], p.value[1]]] as [[number, number], [number, number]],
+  })),
+)
 
-// 城市浮动偏移
+// 浮动偏移
 const floatOffsets = shallowRef<Record<string, { dx: number; dy: number }>>({})
 let floatTimer: ReturnType<typeof setInterval> | null = null
-
 function randomOffsets() {
   const off: Record<string, { dx: number; dy: number }> = {}
   for (const p of props.data) {
@@ -83,7 +105,6 @@ function randomOffsets() {
   }
   floatOffsets.value = off
 }
-
 onMounted(() => { randomOffsets(); floatTimer = setInterval(randomOffsets, 2000) })
 onUnmounted(() => { if (floatTimer) clearInterval(floatTimer) })
 
@@ -97,22 +118,22 @@ const chartOption = computed(() => ({
     formatter: (p: { name: string; value: number[] }) =>
       `<span style="color:#b388ff">◈</span> ${p.name}<br/>活跃度: <span style="color:#ffd54f">${p.value[2]?.toLocaleString('zh-CN') ?? '-'}</span>`,
   },
-  // 画布坐标系：X 0-100, Y 0-100，无多余留白
   grid: { left: 0, right: 0, top: 0, bottom: 0, containLabel: false },
   xAxis: { type: 'value', show: false, min: 0, max: 100 },
   yAxis: { type: 'value', show: false, min: 0, max: 100 },
   animationDurationUpdate: 1400,
   series: [
-    // ① 背景暗点（32城均匀分布全画布）
+    // ① 背景暗点（均匀网格，铺满全画布）
     {
       type: 'scatter',
-      data: dimDots,
-      symbolSize: 5,
-      itemStyle: { color: 'rgba(179,136,255,0.16)' },
-      emphasis: { scale: 1.5, itemStyle: { color: 'rgba(179,136,255,0.45)' } },
+      data: bgDots,
+      symbolSize: 3,
+      itemStyle: { color: 'rgba(179,136,255,0.12)' },
+      emphasis: { scale: 1.8, itemStyle: { color: 'rgba(179,136,255,0.4)' } },
+      silent: false,
       z: 0,
     },
-    // ② 中心根节点 — 金色菱形 + 强力脉冲涟漪
+    // ② 中枢 — 金色菱形 + 强力脉冲
     {
       type: 'effectScatter',
       data: [{ name: '中枢', value: [...CENTER, 99999] }],
@@ -127,13 +148,13 @@ const chartOption = computed(() => ({
       },
       z: 4,
     },
-    // ③ 飞线 — 中心向四面八方辐射 + 粒子流动
+    // ③ 飞线 — 各个方向等长辐射
     {
       type: 'lines',
       coordinateSystem: 'cartesian2d',
       polyline: false,
       data: flightLines.value,
-      lineStyle: { color: 'rgba(179,136,255,0.25)', width: 1.5, curveness: 0.1 },
+      lineStyle: { color: 'rgba(179,136,255,0.22)', width: 1.5, curveness: 0.08 },
       effect: {
         show: true,
         period: 5,
@@ -144,7 +165,7 @@ const chartOption = computed(() => ({
       },
       z: 1,
     },
-    // ④ 活跃城市 — 金色节点 + 紫色涟漪 + 浮动摇摆
+    // ④ 活跃城市 — 金色节点 + 紫色涟漪
     {
       type: 'effectScatter',
       data: projectedActive().map(p => {
