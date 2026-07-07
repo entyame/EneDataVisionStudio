@@ -28,14 +28,14 @@ const chartOption = computed(() => ({
     trigger: 'item' as const,
     backgroundColor: 'rgba(20, 10, 40, 0.9)',
     borderColor: 'rgba(140, 100, 220, 0.5)',
-    textStyle: { color: '#e0d0ff', fontSize: 12 },
+    textStyle: { color: '#e0d0ff', fontSize: 13 },
     formatter: '{b}: {c}% ({d}%)',
   },
   legend: {
     orient: 'vertical' as const,
     right: 4,
     top: 'center',
-    textStyle: { color: '#b0a0d0', fontSize: 11 },
+    textStyle: { color: '#b0a0d0', fontSize: 13 },
     itemWidth: 10,
     itemHeight: 10,
   },
@@ -56,7 +56,7 @@ const chartOption = computed(() => ({
       emphasis: {
         label: {
           show: true,
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 'bold',
           color: '#ffffff',
         },

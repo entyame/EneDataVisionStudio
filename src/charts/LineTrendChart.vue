@@ -46,14 +46,14 @@ const chartOption = computed(() => {
       borderColor: 'rgba(140, 100, 220, 0.5)',
       textStyle: {
         color: '#e0d0ff',
-        fontSize: 12,
+        fontSize: 13,
       },
     },
     legend: {
       bottom: 0,
       textStyle: {
         color: '#b0a0d0',
-        fontSize: 12,
+        fontSize: 13,
       },
       data: props.data.map((s) => s.name),
     },
@@ -72,7 +72,7 @@ const chartOption = computed(() => {
       axisTick: { show: false },
       axisLabel: {
         color: '#9080b0',
-        fontSize: 11,
+        fontSize: 13,
       },
     },
     yAxis: {
@@ -80,7 +80,7 @@ const chartOption = computed(() => {
       splitLine: { lineStyle: { color: 'rgba(140, 100, 220, 0.12)' } },
       axisLabel: {
         color: '#9080b0',
-        fontSize: 11,
+        fontSize: 13,
         formatter: (v: number) => (v >= 10000 ? (v / 10000).toFixed(0) + 'w' : String(v)),
       },
     },

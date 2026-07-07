@@ -53,8 +53,8 @@ const displayValue = computed(() => {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 22px 24px;
+  gap: 14px;
+  padding: 14px 24px;
   background: linear-gradient(135deg, rgba(50, 20, 80, 0.5) 0%, rgba(20, 5, 40, 0.7) 100%);
   border: 1px solid rgba(140, 100, 220, 0.25);
   border-radius: 4px;
@@ -91,12 +91,12 @@ const displayValue = computed(() => {
 
 /* ---- 图标 ---- */
 .metric-icon {
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 34px;
+  font-size: 26px;
   border-radius: 8px;
   background: rgba(120, 80, 200, 0.2);
   flex-shrink: 0;
@@ -109,21 +109,21 @@ const displayValue = computed(() => {
 }
 
 .metric-label {
-  font-size: 15px;
+  font-size: 14px;
   color: rgba(200, 180, 230, 0.85);
-  margin-bottom: 6px;
+  margin-bottom: 3px;
   letter-spacing: 1px;
 }
 
 .metric-value {
   display: flex;
   align-items: baseline;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: 5px;
+  margin-bottom: 3px;
 }
 
 .value-number {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 700;
   color: #ffffff;
   font-family: 'DIN Alternate', 'Helvetica Neue', sans-serif;
@@ -132,7 +132,7 @@ const displayValue = computed(() => {
 }
 
 .value-unit {
-  font-size: 15px;
+  font-size: 14px;
   color: rgba(200, 180, 230, 0.7);
 }
 
@@ -141,7 +141,7 @@ const displayValue = computed(() => {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .trend-arrow.up {

@@ -194,7 +194,7 @@ function retry(): void {
 }
 
 .chart-box--center {
-  flex: 2;
+  flex: 3;
 }
 
 /* ---- 指标卡片行 ---- */
@@ -211,7 +211,7 @@ function retry(): void {
 /* ---- 实时动态 ---- */
 .activity-box {
   flex-shrink: 0;
-  height: 200px;
+  height: 260px;
 }
 
 .activity-list {
@@ -226,8 +226,8 @@ function retry(): void {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 10px;
-  font-size: 13px;
+  padding: 9px 12px;
+  font-size: 15px;
   border-radius: 2px;
   background: rgba(60, 30, 100, 0.15);
   transition: background 0.2s;
@@ -264,7 +264,7 @@ function retry(): void {
 .activity-time {
   color: rgba(180, 150, 220, 0.6);
   font-family: 'Courier New', monospace;
-  font-size: 12px;
+  font-size: 14px;
   flex-shrink: 0;
 }
 

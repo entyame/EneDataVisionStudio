@@ -28,11 +28,11 @@ const chartOption = computed(() => ({
   tooltip: {
     backgroundColor: 'rgba(20, 10, 40, 0.9)',
     borderColor: 'rgba(140, 100, 220, 0.5)',
-    textStyle: { color: '#e0d0ff', fontSize: 12 },
+    textStyle: { color: '#e0d0ff', fontSize: 13 },
   },
   legend: {
     bottom: 0,
-    textStyle: { color: '#b0a0d0', fontSize: 11 },
+    textStyle: { color: '#b0a0d0', fontSize: 13 },
     data: props.series.map((s) => s.name),
   },
   radar: {
@@ -44,7 +44,7 @@ const chartOption = computed(() => ({
     })),
     axisName: {
       color: '#b0a0d0',
-      fontSize: 11,
+      fontSize: 13,
     },
     splitArea: {
       areaStyle: {

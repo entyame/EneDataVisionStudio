@@ -33,11 +33,11 @@ const chartOption = computed(() => {
       axisPointer: { type: 'shadow' as const },
       backgroundColor: 'rgba(20, 10, 40, 0.9)',
       borderColor: 'rgba(140, 100, 220, 0.5)',
-      textStyle: { color: '#e0d0ff', fontSize: 12 },
+      textStyle: { color: '#e0d0ff', fontSize: 13 },
     },
     grid: {
       left: 8,
-      right: 24,
+      right: 28,
       top: 8,
       bottom: 8,
       containLabel: true,
@@ -47,7 +47,7 @@ const chartOption = computed(() => {
       splitLine: { lineStyle: { color: 'rgba(140, 100, 220, 0.12)' } },
       axisLabel: {
         color: '#9080b0',
-        fontSize: 11,
+        fontSize: 13,
         formatter: (v: number) => (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : String(v)),
       },
     },
@@ -58,7 +58,7 @@ const chartOption = computed(() => {
       axisTick: { show: false },
       axisLabel: {
         color: '#b0a0d0',
-        fontSize: 12,
+        fontSize: 14,
       },
     },
     series: [
@@ -84,7 +84,7 @@ const chartOption = computed(() => {
           show: true,
           position: 'right',
           color: '#c0a0ff',
-          fontSize: 11,
+          fontSize: 13,
           formatter: (p: { value: number }) => (p.value >= 1000 ? (p.value / 1000).toFixed(1) + 'k' : String(p.value)),
         },
       },

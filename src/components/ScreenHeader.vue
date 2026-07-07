@@ -106,7 +106,7 @@ onUnmounted(() => {
   font-size: 34px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 8px;
+  letter-spacing: 3px;
   margin: 0;
   background: linear-gradient(180deg, #ffffff 0%, #c0a0ff 100%);
   -webkit-background-clip: text;
@@ -118,7 +118,7 @@ onUnmounted(() => {
   font-size: 14px;
   color: rgba(180, 150, 220, 0.75);
   margin: 4px 0 0;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
 }
 
 /* ---- 时间 ---- */
