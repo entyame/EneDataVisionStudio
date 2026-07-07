@@ -104,7 +104,7 @@ const displayValue = computed(() => {
   background: rgba(179, 136, 255, 0.06);
   border: 1px solid rgba(179, 136, 255, 0.18);
 }
-.metric-icon { width: 26px; height: 26px; display: block; }
+.metric-icon { width: 26px; height: 26px; display: block; filter: brightness(0) invert(1); }
 
 /* 信息 */
 .metric-info { flex: 1; min-width: 0; }
