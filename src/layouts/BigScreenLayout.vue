@@ -28,10 +28,10 @@
       <div class="cockpit-center">
         <!-- 指标卡片行 -->
         <div class="metrics-row" v-if="summary">
-          <MetricCard label="今日访问量" :value="summary.todayVisits" unit="次" icon="◈" color="purple" format="number" :trend="12.5" />
-          <MetricCard label="实时订单数" :value="summary.realtimeOrders" unit="单" icon="◆" color="gold" format="number" :trend="8.3" />
-          <MetricCard label="活跃用户数" :value="summary.activeUsers" unit="人" icon="◇" color="purple" format="number" :trend="-3.2" />
-          <MetricCard label="系统健康度" :value="summary.systemHealth" unit="%" icon="◎" color="gold" format="percent" :trend="0.8" />
+          <MetricCard label="今日访问量" :value="summary.todayVisits" unit="次" :icon="icons.visits" color="purple" format="number" :trend="12.5" />
+          <MetricCard label="实时订单数" :value="summary.realtimeOrders" unit="单" :icon="icons.orders" color="gold" format="number" :trend="8.3" />
+          <MetricCard label="活跃用户数" :value="summary.activeUsers" unit="人" :icon="icons.users" color="purple" format="number" :trend="-3.2" />
+          <MetricCard label="系统健康度" :value="summary.systemHealth" unit="%" :icon="icons.health" color="gold" format="percent" :trend="0.8" />
         </div>
 
         <!-- 地图总览 -->
@@ -39,13 +39,13 @@
           <MapOverviewChart :data="mapPoints" />
         </div>
 
-        <!-- 实时动态 -->
+        <!-- 实时动态（自动滚动） -->
         <div class="activity-slot">
-          <BasePanel title="实时动态" accent="cyan">
-            <div class="activity-list">
+          <BasePanel title="实时动态">
+            <div class="activity-list" ref="activityListRef">
               <div
-                v-for="item in activities"
-                :key="item.id"
+                v-for="(item, idx) in doubledActivities"
+                :key="`${item.id}-${idx}`"
                 class="activity-item"
                 :class="`activity--${item.type}`"
               >
@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted, ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useDashboardStore } from '@/stores/dashboardStore'
 import ParticleBackground from '@/components/ParticleBackground.vue'
@@ -99,7 +99,36 @@ import MapOverviewChart from '@/charts/MapOverviewChart.vue'
 const store = useDashboardStore()
 const { loading, error, summary, trend, categories, rankings, radarIndicators, radarSeries, activities, mapPoints } = storeToRefs(store)
 
-onMounted(() => store.loadDashboardData())
+// ---- SVG 图标 ----
+const icons = {
+  visits: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>`,
+  orders: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polyline points="16 8 21 8 23 11 23 16 16 16"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>`,
+  users:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  health: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+}
+
+// ---- 实时动态自动滚动 ----
+const activityListRef = ref<HTMLElement | null>(null)
+const doubledActivities = computed(() => [...activities.value, ...activities.value])
+let scrollTimer: ReturnType<typeof setInterval> | null = null
+
+function startAutoScroll() {
+  scrollTimer = setInterval(() => {
+    const el = activityListRef.value
+    if (!el) return
+    el.scrollTop += 0.4 // 每 16ms 滚 0.4px ≈ 25px/s
+    // 滚完一半（即原始列表长度）就回到顶部，实现无缝循环
+    if (el.scrollTop >= el.scrollHeight / 2) {
+      el.scrollTop = 0
+    }
+  }, 16)
+}
+
+onMounted(() => {
+  store.loadDashboardData()
+  startAutoScroll()
+})
+onUnmounted(() => { if (scrollTimer) clearInterval(scrollTimer) })
 function retry() { store.loadDashboardData() }
 </script>
 

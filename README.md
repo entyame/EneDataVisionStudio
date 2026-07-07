@@ -18,6 +18,10 @@
 
 ## 页面预览
 
+![EneDataVisionStudio 数据大屏截图](ScreenShot.png)
+
+> ▲ EneDataVisionStudio 科幻 HUD 数据驾驶舱界面 — 深紫主调、鎏金提亮、全息玻璃拟态面板、粒子网络背景、中心态势总览
+
 数据大屏包含以下模块：
 
 | 区域 | 内容 |
