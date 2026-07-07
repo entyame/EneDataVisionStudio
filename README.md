@@ -89,19 +89,6 @@ npm run lint       # 代码检查
 npm run format     # 代码格式化
 ```
 
-# 生产构建
-npm run build
-
-# 预览生产构建
-npm run preview
-
-# 代码检查
-npm run lint
-
-# 代码格式化
-npm run format
-```
-
 ## 目录结构
 
 ```
