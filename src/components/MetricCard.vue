@@ -5,7 +5,7 @@
 
     <div class="metric-icon-ring">
       <div class="metric-icon-inner">
-        <span class="metric-icon" v-html="icon"></span>
+        <img class="metric-icon" :src="icon" alt="" />
       </div>
       <svg class="metric-ring" viewBox="0 0 60 60">
         <circle cx="30" cy="30" r="27" fill="none" :stroke="ringColor" stroke-width="1.5"
@@ -104,7 +104,7 @@ const displayValue = computed(() => {
   background: rgba(179, 136, 255, 0.06);
   border: 1px solid rgba(179, 136, 255, 0.18);
 }
-.metric-icon { font-size: 24px; }
+.metric-icon { width: 26px; height: 26px; display: block; }
 
 /* 信息 */
 .metric-info { flex: 1; min-width: 0; }

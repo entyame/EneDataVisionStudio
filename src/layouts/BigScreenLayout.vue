@@ -28,10 +28,10 @@
       <div class="cockpit-center">
         <!-- 指标卡片行 -->
         <div class="metrics-row" v-if="summary">
-          <MetricCard label="今日访问量" :value="summary.todayVisits" unit="次" :icon="icons.visits" color="purple" format="number" :trend="12.5" />
-          <MetricCard label="实时订单数" :value="summary.realtimeOrders" unit="单" :icon="icons.orders" color="gold" format="number" :trend="8.3" />
-          <MetricCard label="活跃用户数" :value="summary.activeUsers" unit="人" :icon="icons.users" color="purple" format="number" :trend="-3.2" />
-          <MetricCard label="系统健康度" :value="summary.systemHealth" unit="%" :icon="icons.health" color="gold" format="percent" :trend="0.8" />
+          <MetricCard label="今日访问量" :value="summary.todayVisits" unit="次" icon="/icons/icon-visits.svg" color="purple" format="number" :trend="12.5" />
+          <MetricCard label="实时订单数" :value="summary.realtimeOrders" unit="单" icon="/icons/icon-orders.svg" color="gold" format="number" :trend="8.3" />
+          <MetricCard label="活跃用户数" :value="summary.activeUsers" unit="人" icon="/icons/icon-users.svg" color="purple" format="number" :trend="-3.2" />
+          <MetricCard label="系统健康度" :value="summary.systemHealth" unit="%" icon="/icons/icon-health.svg" color="gold" format="percent" :trend="0.8" />
         </div>
 
         <!-- 地图总览 -->
@@ -98,14 +98,6 @@ import MapOverviewChart from '@/charts/MapOverviewChart.vue'
 
 const store = useDashboardStore()
 const { loading, error, summary, trend, categories, rankings, radarIndicators, radarSeries, activities, mapPoints } = storeToRefs(store)
-
-// ---- SVG 图标 ----
-const icons = {
-  visits: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>`,
-  orders: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polyline points="16 8 21 8 23 11 23 16 16 16"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>`,
-  users:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-  health: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
-}
 
 // ---- 实时动态自动滚动 ----
 const activityListRef = ref<HTMLElement | null>(null)
