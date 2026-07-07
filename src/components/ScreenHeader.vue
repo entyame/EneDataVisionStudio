@@ -51,9 +51,9 @@ onUnmounted(() => { if (t) clearInterval(t) })
 
 <style scoped>
 .hud-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   height: 80px;
   padding: 0 36px;
   background: linear-gradient(180deg, rgba(10, 6, 22, 0.95) 0%, rgba(12, 8, 26, 0.75) 100%);
@@ -76,8 +76,10 @@ onUnmounted(() => { if (t) clearInterval(t) })
 }
 
 /* ---- 左右装饰 ---- */
+.deco-left  { justify-self: start; }
+.deco-right { justify-self: end; }
 .header-deco {
-  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 10px;
 }
 .deco-line {
   width: 50px; height: 1px;
